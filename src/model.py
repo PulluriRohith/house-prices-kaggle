@@ -21,8 +21,8 @@ IMPORTANT = [
 # ------------------------------------------------------------
 # 0.  Load raw CSVs
 # ------------------------------------------------------------
-df_train_raw = pd.read_csv("train.csv")
-df_test_raw  = pd.read_csv("test.csv")
+df_train_raw = pd.read_csv("../data/train.csv")
+df_test_raw  = pd.read_csv("../data/test.csv")
 
 # ------------------------------------------------------------
 # 1.  Pre-process  (fit on train, reuse on test)
@@ -93,8 +93,8 @@ submission = pd.DataFrame({
     "Id": df_test_raw["Id"],
     "SalePrice": test_pred
 })
-submission.to_csv("submission.csv", index=False)
-print("submission.csv written") # This is the file you submit to Kaggle
+submission.to_csv("../data/submission.csv", index=False)
+print("data/submission.csv written") # This is the file you submit to Kaggle
 
 # ------------------------------------------------------------
 # 6.  Persist model (+ preprocessing stats + medians) for later use
@@ -107,6 +107,6 @@ joblib.dump({
     "stats":   stats,
     "columns": X.columns,
     "medians": medians
-}, "xgb_model.joblib")
+}, "../models/xgb_model.joblib")
 
 print("Model bundle saved to xgb_model.joblib")

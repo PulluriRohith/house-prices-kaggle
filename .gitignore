@@ -12,3 +12,5 @@ venv/
 # Data
 data/processed/  # If these can be regenerated, don't commit large ones
 models/          # If models are very large, consider DVC for versioning
+
+.idea/

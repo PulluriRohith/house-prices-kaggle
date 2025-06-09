@@ -10,7 +10,7 @@ from preprocess_house_prices import preprocess_house_prices
 app = FastAPI()
 
 # Load the saved model bundle (model + stats + feat_cols + medians)
-bundle     = joblib.load("xgb_model.joblib")
+bundle     = joblib.load("../models/xgb_model.joblib")
 model      = bundle["model"]
 stats      = bundle["stats"]
 feat_cols  = bundle["columns"]
@@ -36,7 +36,9 @@ ALL_RAW_COLS = [
 ]
 
 def _run_pipeline(df_raw: pd.DataFrame) -> float:
-    """Helper: preprocess, one-hot, align, predict, back-transform."""
+    # 1. Replace None → NaN for all columns
+    df_raw = df_raw.replace({None: np.nan})
+    # 2. Proceed with your existing preprocess → one-hot → align → predict
     df_proc, _    = preprocess_house_prices(df_raw, stats=stats)
     df_onehot     = pd.get_dummies(df_proc, dtype=float)
     df_aligned    = df_onehot.reindex(columns=feat_cols, fill_value=0)
@@ -54,6 +56,13 @@ async def predict(payload: dict[str, Any]):
     Missing important keys get filled with the training median;
     all other features become None.
     """
+    row = {}
+    # Reject empty payload outright
+
+    if not payload:
+        raise HTTPException(status_code=400, detail="Empty payload — please supply at least provide id.")
+
+    # Build a complete raw row:
     row = {}
     for col, median in MEDIANS.items():
         row[col] = payload.get(col, median)
@@ -75,6 +84,13 @@ async def predict_raw(payload: dict[str, Any]):
     Predict using ANY subset of raw features.
     Missing keys become None.
     """
+    row = {col: payload.get(col, None) for col in ALL_RAW_COLS}
+
+    # Reject completely empty payload
+    if not payload:
+        raise HTTPException(status_code=400,detail="Empty payload — please supply at least one raw feature.")
+
+    #Build a complete raw row, filling missing keys with None
     row = {col: payload.get(col, None) for col in ALL_RAW_COLS}
 
     try:
