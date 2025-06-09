@@ -1,0 +1,145 @@
+Selected Features by Random Forest: Index(['LotArea', 'OverallQual', 'BsmtFinSF1', 'TotalBsmtSF', '1stFlrSF', '2ndFlrSF', 'GrLivArea', 'GarageCars', 'GarageArea'], dtype='object')
+
+removing mssubcalss actually - weaker correlation
+
+mean for missing values of lot frontage
+
+removing lot area and add log transfdoramtion for lotarea
+
+Dropped Alley column due to excessive missing values.
+
+Dropped Utilities column due to low variability.
+
+Dropped street column due to low variability.
+
+
+Lotshape - Ordinal encoding mehtod
+
+
+Land Contour, LandSlope, Neigbhourhood - ordinal encoding method (decided by use the median SalePrice as a guide to determine the ranking)
+
+
+but neighborhood had 25 ranks so manauiilly assigning not possible therefore method rank is used
+
+Assigns ranks to neighborhoods based on their median SalePrice.
+The lowest SalePrice gets rank 1, and the highest gets the maximum rank.
+
+
+
+Dropped Condition1 and condition2  due to low variablity
+
+
+BldgType,HouseStyle = Ordinal encoding method
+
+
+Use Building Age and Time Since Remodel for better interpretability. (from year built and year remodelled features created this features and dropped these)
+
+ 
+
+Roofstyle - ordinal encoding method
+
+Roofmatl - Dropped column due to low variability.
+
+
+combined both exerior 1st and exterior 2nd and did one hot encoding 
+
+
+
+MasVnrType: Masonry veneer type - ordinal actually filled missing values with None
+
+and masvnr area - may bew can drop but not now
+
+
+and ExterQual: - ordinal encoding
+
+
+dopped- ExterCond - due to low variability.
+
+
+
+Foundation: Type of foundation - ordinal 
+
+
+
+
+combined both BsmtFinSF1 amd BsmtFinSF2 into one 
+
+combined 3 - BsmtQual, BsmtCond and BsmtExposure
+
+dropped - BsmtUnfSF
+
+no changes on TotalBsmtSF 
+
+
+
+Heating: Type of heating Dropped column due to low variability.
+
+
+HeatingQC - ordinal encoding
+
+central air, Electrical - dropped
+
+
+
+
+combined 1stFlrSF, 2ndFlrSF handled outliers using capping - Cap outliers at the 99th percentile for 1stFlrSF and 2ndFlrSF
+
+
+dropped lowqualfinsf
+
+removed outliers grlivarea
+
+
+
+BsmtFullBath: Basement full bathrooms
+
+BsmtHalfBath: Basement half bathrooms - removed due to very qweak correlation
+
+FullBath: Full bathrooms above grade
+
+HalfBath: Half baths above grade
+
+combined othere three and removed outliers - dorpped due to total usable rooms created by adding TotRmsAbvGrd
+
+
+Bedroom: Bedrooms above grade (does NOT include basement bedrooms) -dropped
+
+Kitchen: Kitchens above grade - dropped 
+
+
+KitchenQual - ordinal encoding
+
+
+Fireplaces: Number of fireplaces rewmove outliers and kept as it  (may be can drop)
+
+
+FireplaceQu: Fireplace quality - ordinal encoding
+
+
+GarageType, GarageYrBlt - dorpped
+
+
+and GarageFinish - ordinal encoding
+
+
+garage cars, garage area - reomved outliers thats all
+
+
+
+GarageQual, GarageCond, PavedDrive- low variablitiy
+
+
+
+WoodDeckSF, OpenPorchSF - combined to form one feature - totalOutdoorSF
+
+
+poolqc, fernce, MiscFeature - dorpped due to so many missing valuies
+
+
+Miscvalue, MOSold, YrSold - very weak correalation
+
+
+SaleCondition, SaleType - due to low variablity
+
+
+LotConfig - weak correlation
